@@ -229,7 +229,7 @@ LimitNPROC=infinity" > /etc/systemd/system/openvpn-server@server.service.d/disab
 	if [[ "$os" = "debian" || "$os" = "ubuntu" ]]; then
 		apt-get update
 		apt-get install -y --no-install-recommends openvpn openssl ca-certificates $firewall
-  	elif [[ "$os" = "debian" || "$os" = "ubuntu" ]]; then
+  	elif [[ "$os" = "archlinux" ]]; then
    		pacman -Syyyu
      		pacman -S openvpn openssl ca-certificates $firewall
 	elif [[ "$os" = "centos" ]]; then
