@@ -247,7 +247,13 @@ LimitNPROC=infinity" > /etc/systemd/system/openvpn-server@server.service.d/disab
 	easy_rsa_url='https://github.com/OpenVPN/easy-rsa/releases/download/v3.2.0/EasyRSA-3.2.0.tgz'
 	mkdir -p /etc/openvpn/server/easy-rsa/
 	{ wget -qO- "$easy_rsa_url" 2>/dev/null || curl -sL "$easy_rsa_url" ; } | tar xz -C /etc/openvpn/server/easy-rsa/ --strip-components 1
-	chown -R root:root /etc/openvpn/server/easy-rsa/
+ 
+	if [[ "$os" = "archlinux" ]]; then
+		chown openvpn:network /etc/openvpn/server/*
+	else
+		chown -R root:root /etc/openvpn/server/easy-rsa/
+	fi
+ 
 	cd /etc/openvpn/server/easy-rsa/
 	# Create the PKI, set up the CA and the server and client certificates
 	./easyrsa --batch init-pki
