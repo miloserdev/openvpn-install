@@ -336,13 +336,22 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 		;;
 	esac
 	echo 'push "block-outside-dns"' >> /etc/openvpn/server/server.conf
-	echo "keepalive 10 120
+
+if [[ "$os" = "archlinux" ]]; then
+echo "keepalive 10 120
+persist-key
+persist-tun
+verb 3
+crl-verify crl.pem" >> /etc/openvpn/server/server.conf
+else
+echo "keepalive 10 120
 user nobody
 group $group_name
 persist-key
 persist-tun
 verb 3
 crl-verify crl.pem" >> /etc/openvpn/server/server.conf
+fi
 	if [[ "$protocol" = "udp" ]]; then
 		echo "explicit-exit-notify" >> /etc/openvpn/server/server.conf
 	fi
