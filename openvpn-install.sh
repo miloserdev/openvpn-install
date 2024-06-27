@@ -331,8 +331,6 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	esac
 	echo 'push "block-outside-dns"' >> /etc/openvpn/server/server.conf
 	echo "keepalive 10 120
-user nobody
-group $group_name
 persist-key
 persist-tun
 verb 3
